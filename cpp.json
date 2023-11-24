@@ -1,3 +1,4 @@
+ 
 {
 	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
@@ -12,17 +13,129 @@
 			"#define endl \"\\n\"",
 			"#define ll long long",
 			"#define ull unsigned long long",
-			"#define god_please_run_without_error return 0",
+			"#define pOp pop_back",
+			"#define pusH push_back",
+			"#define mod const int 1e9+7",
+			"#define god_please_run_my_code_without_errors return 0",
 			"#define fastio ios_base::sync_with_stdio(false);\\",
 			"        cin.tie(NULL);cout.tie(NULL);\n",
+			"$1",
+			"void solve()\n{\n\t$1\n}",
 			"int main()",
 			"{",
 	 		"\t$1\n",
-			"\tgod_please_run_without_error;",
+			"\tgod_please_run_my_code_without_errors;",
 			"}",
 
 			
 	 	],
 	 	"description": "Log output to console"
 	 }
+	 "knapsack": {
+		"prefix": "knapsack",
+		"body": [
+			"long long int knapsack01(int W, const vector<long long int>& wt, const vector<long long int>& val, int n) {",
+			"    vector<vector<long long int>> dp(n + 1, vector<long long int>(W + 1, 0));",
+			"",
+			"    for (int i = 1; i <= n; ++i) {",
+			"        for (int w = 1; w <= W; ++w) {",
+			"            if (wt[i - 1] > w) {",
+			"                dp[i][w] = dp[i - 1][w];",
+			"            } else {",
+			"                dp[i][w] = max(dp[i - 1][w], val[i - 1] + dp[i - 1][w - wt[i - 1]]);",
+			"            }",
+			"        }",
+			"    }",
+			"",
+			"    return dp[n][W];",
+			"}"
+		],
+		"description": "0/1 Knapsack Dynamic Programming"
+	}
+	
+
+	"CoinChange" :{
+    "prefix": "CoinChange",
+    "body": [
+        "int minCoinChange(int amount, const vector<int>& coins) {",
+       
+        "    vector<int> minCoinsDP(amount + 1, INT_MAX);",
+        "",
+        "    minCoinsDP[0] = 0;",
+        "",
+        "    for (int coin : coins) {",
+        "        for (int i = coin; i <= amount; ++i) {",
+        "            if (minCoinsDP[i - coin] != INT_MAX) {",
+        "                minCoinsDP[i] = min(minCoinsDP[i], minCoinsDP[i - coin] + 1);",
+        "            }",
+        "        }",
+        "    }",
+        "",
+        "    return minCoinsDP[amount];",
+        "}"
+    ],
+    "description": "Minimum Coin Change Dynamic Programming"
+}
+"dpTemplate": {
+    "prefix": "dpTemplate",
+    "body": [
+        "vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));",
+        "",
+        "for (int i = 1; i <= n; ++i) {",
+        "    for (int j = 1; j <= m; ++j) {",
+        
+        "        // dp[i][j] = ...",
+        "    }",
+        "}",
+        "",
+        "// The final result is stored in dp[n][m]",
+        "return dp[n][m];"
+    ],
+    "description": "Dynamic Programming Template"
+}
+"graphTemplate": {
+    "prefix": "graphTemplate",
+    "body": [
+        
+        "class Graph {",
+        "public:",
+        "    int V; ",
+        "    vector<vector<int>> adjList;",
+        "",
+        "    Graph(int vertices) : V(vertices), adjList(vertices) {}",
+        "",
+        
+        "    void addEdge(int u, int v) {",
+        "        adjList[u].push_back(v);",
+        "        adjList[v].push_back(u);",
+        "    }",
+        "",
+        
+        "    void bfs(int startVertex) {",
+        "        vector<bool> visited(V, false);",
+        "        queue<int> q;",
+        "        q.push(startVertex);",
+        "        visited[startVertex] = true;",
+        "",
+        "        while (!q.empty()) {",
+        "            int currentVertex = q.front();",
+        "            cout << currentVertex << ' ';",
+        "            q.pop();",
+        "",
+        
+        "            for (int neighbor : adjList[currentVertex]) {",
+        "                if (!visited[neighbor]) {",
+        "                    q.push(neighbor);",
+        "                    visited[neighbor] = true;",
+        "                }",
+        "            }",
+        "        }",
+        "    }",
+        "};",
+        "",
+        
+    ],
+    "description": "Graph Representation and BFS Template"
+}
+
 }

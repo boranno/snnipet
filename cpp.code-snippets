@@ -1,0 +1,27 @@
+{
+	"main c++": {
+		"prefix": "main c++",
+		"body": [
+			"#include<bits/stdc++.h>",
+		   "using namespace std;",
+		   "#define endl \"\\n\"",
+		   "#define ll long long",
+		   "#define ull unsigned long long",
+		   "#define pOp pop_back",
+		   "#define pusH push_back",
+		   "#define mod const int 1e9+7",
+		   "#define god_please_run_my_code_without_errors return 0",
+		   "#define fastio ios_base::sync_with_stdio(false);\\",
+		   "        cin.tie(NULL);cout.tie(NULL);\n",
+		   "void solve()\n{\n\t$1\n}",
+		   "int main()",
+		   "{",
+			"\t$1\n",
+		   "\tgod_please_run_my_code_without_errors;",
+		   "}",
+
+		   
+		],
+		"description": "Log output to console"
+	}
+}
