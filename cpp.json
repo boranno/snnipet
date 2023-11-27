@@ -1,4 +1,4 @@
-  
+ 
 {
 	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
@@ -95,7 +95,7 @@
 },
 
 "lis": {
-    "prefix": "longest incresing subsequence",
+    "prefix": "lis",
     "body": [
         "int lis(int i, vector<int>& arr) {",
         "    if (dp[i] != -1) {",
@@ -195,7 +195,14 @@
     "Graph Template": {
       "prefix": "graph_template",
       "body": [
-       
+        "#include <iostream>",
+        "#include <vector>",
+        "#include <unordered_map>",
+        "#include <queue>",
+        "#include <algorithm>",
+        "",
+        "using namespace std;",
+        "",
         "template<typename T>",
         "class graph {",
         "public:",
@@ -286,7 +293,12 @@
         "Longest Common Subsequence": {
           "prefix": "longest_common_subsequence",
           "body": [
-            
+            "#include <iostream>",
+            "#include <vector>",
+            "#include <algorithm>",
+            "",
+            "using namespace std;",
+            "",
             "int longestCommonSubsequence(string text1, string text2) {",
             "    int m = text1.length();",
             "    int n = text2.length();",
