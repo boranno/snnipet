@@ -1,4 +1,4 @@
- 
+  
 {
 	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
@@ -30,7 +30,7 @@
 			
 	 	],
 	 	"description": "Log output to console"
-	 }
+	 },
 	 "knapsack": {
 		"prefix": "knapsack",
 		"body": [
@@ -51,7 +51,7 @@
 			"}"
 		],
 		"description": "0/1 Knapsack Dynamic Programming"
-	}
+	},
 	
 
 	"CoinChange" :{
@@ -75,7 +75,7 @@
         "}"
     ],
     "description": "Minimum Coin Change Dynamic Programming"
-}
+},
 "dpTemplate": {
     "prefix": "dpTemplate",
     "body": [
@@ -92,50 +92,229 @@
         "return dp[n][m];"
     ],
     "description": "Dynamic Programming Template"
-}
-"graphTemplate": {
-    "prefix": "graphTemplate",
+},
+
+"lis": {
+    "prefix": "longest incresing subsequence",
     "body": [
-        
-        "class Graph {",
-        "public:",
-        "    int V; ",
-        "    vector<vector<int>> adjList;",
-        "",
-        "    Graph(int vertices) : V(vertices), adjList(vertices) {}",
-        "",
-        
-        "    void addEdge(int u, int v) {",
-        "        adjList[u].push_back(v);",
-        "        adjList[v].push_back(u);",
+        "int lis(int i, vector<int>& arr) {",
+        "    if (dp[i] != -1) {",
+        "        return dp[i];",
         "    }",
         "",
-        
-        "    void bfs(int startVertex) {",
-        "        vector<bool> visited(V, false);",
-        "        queue<int> q;",
-        "        q.push(startVertex);",
-        "        visited[startVertex] = true;",
+        "    int ans = 1;",
+        "    for (int j = 0; j < i; ++j) {",
+        "        if (arr[i] > arr[j]) {",
+        "            int seq = lis(j, arr) + 1;",
+        "            ans = max(seq, ans);",
+        "        }",
+        "    }",
+        "",
+        "    dp[i] = ans; ",
+        "",
+        "    return ans;",
+        "}"
+    ],
+    "description": "Longest Increasing Subsequence (LIS) function"
+},
+
+    "minDeltoconvertstring": {
+        "prefix": "minDeltoconvertstring",
+        "body": [
+            "int minDeletions(string str1, string str2) {",
+            "    int m = str1.length();",
+            "    int n = str2.length();",
+            "",
+            "    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));",
+            "",
+            "    for (int i = 0; i <= m; ++i) {",
+            "        for (int j = 0; j <= n; ++j) {",
+            "            if (i == 0) {",
+            "                dp[i][j] = j;",
+            "            } else if (j == 0) {",
+            "                dp[i][j] = i;",
+            "            } else if (str1[i - 1] == str2[j - 1]) {",
+            "                dp[i][j] = dp[i - 1][j - 1];",
+            "            } else {",
+            "                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1]);",
+            "            }",
+            "        }",
+            "    }",
+            "",
+            "    return dp[m][n];",
+            "}"
+        ],
+        "description": "Function to calculate the minimum number of deletions between two strings"
+    },
+
+
+    "rodCutting": {
+        "prefix": "rodCutting",
+        "body": [
+            "int rodCutting(vector<int>& prices, int length) {",
+            "    int n = prices.size();",
+            "",
+            "    vector<int> dp(length + 1, 0);",
+            "    for (int i = 1; i <= length; ++i) {",
+            "        for (int j = 1; j <= i; ++j) {",
+            "            dp[i] = max(dp[i], prices[j - 1] + dp[i - j]);",
+            "        }",
+            "    }",
+            "    return dp[length];",
+            "}"
+        ],
+        "description": "Function to calculate the maximum revenue from rod cutting based on given prices"
+    },
+
+
+    "subsetSumFunction": {
+        "prefix": "subsetSum",
+        "body": [
+            "bool subsetSum(vector<int>& nums, int target) {",
+            "    int n = nums.size();",
+            "    vector<vector<bool>> dp(n + 1, vector<bool>(target + 1, false));",
+            "    for (int i = 0; i <= n; ++i) {",
+            "        dp[i][0] = true;",
+            "    }",
+            "    for (int i = 1; i <= n; ++i) {",
+            "        for (int j = 1; j <= target; ++j) {",
+            "            if (nums[i - 1] > j) {",
+            "                dp[i][j] = dp[i - 1][j];",
+            "            } else {",
+            "                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];",
+            "            }",
+            "        }",
+            "    }",
+            "    return dp[n][target];",
+            "}"
+        ],
+        "description": "Subset Sum Function using Dynamic Programming"
+    },
+
+
+    "Graph Template": {
+      "prefix": "graph_template",
+      "body": [
+        "#include <iostream>",
+        "#include <vector>",
+        "#include <unordered_map>",
+        "#include <queue>",
+        "#include <algorithm>",
+        "",
+        "using namespace std;",
+        "",
+        "template<typename T>",
+        "class graph {",
+        "public:",
+        "    unordered_map<T, vector<T>> grp;",
+        "",
+        "    void add_edge(T u, T v, bool order_checker) {",
+        "        grp[u].push_back(v);",
+        "        if (!order_checker) {",
+        "            grp[v].push_back(u);",
+        "        }",
+        "    }",
+        "",
+        "    bool is_bipartite() {",
+        "        unordered_map<T, int> color;",
+        "        for (const auto& [node, neighbors] : grp) {",
+        "            if (color.find(node) == color.end() && !BFS_coloring(node, color)) {",
+        "                return false;",
+        "            }",
+        "        }",
+        "        return true;",
+        "    }",
+        "",
+        "    vector<T> BFS_shortest_path(T start, T end) {",
+        "        unordered_map<T, bool> visited;",
+        "        unordered_map<T, int> distance;",
+        "        unordered_map<T, T> parent;",
+        "        queue<T> q;",
+        "",
+        "        visited[start] = true;",
+        "        distance[start] = 0;",
+        "        parent[start] = start;",
+        "        q.push(start);",
         "",
         "        while (!q.empty()) {",
-        "            int currentVertex = q.front();",
-        "            cout << currentVertex << ' ';",
+        "            T Front = q.front();",
         "            q.pop();",
         "",
-        
-        "            for (int neighbor : adjList[currentVertex]) {",
-        "                if (!visited[neighbor]) {",
-        "                    q.push(neighbor);",
-        "                    visited[neighbor] = true;",
+        "            if (Front == end) {",
+        "                vector<T> shortestPath;",
+        "                for (T node = end; node != start; node = parent[node]) {",
+        "                    shortestPath.push_back(node);",
+        "                }",
+        "                shortestPath.push_back(start);",
+        "                reverse(shortestPath.begin(), shortestPath.end());",
+        "                return shortestPath;",
+        "            }",
+        "",
+        "            for (auto i : grp[Front]) {",
+        "                if (!visited[i]) {",
+        "                    q.push(i);",
+        "                    visited[i] = true;",
+        "                    distance[i] = distance[Front] + 1;",
+        "                    parent[i] = Front;",
         "                }",
         "            }",
         "        }",
-        "    }",
-        "};",
         "",
-        
-    ],
-    "description": "Graph Representation and BFS Template"
-}
-
+        "        return vector<T>();",
+        "    }",
+        "",
+        "private:",
+        "    bool BFS_coloring(T start, unordered_map<T, int>& color) {",
+        "        queue<T> q;",
+        "        q.push(start);",
+        "        color[start] = 1;",
+        "",
+        "        while (!q.empty()) {",
+        "            T Front = q.front();",
+        "            q.pop();",
+        "",
+        "            for (const auto& neighbor : grp[Front]) {",
+        "                if (color.find(neighbor) == color.end()) {",
+        "                    q.push(neighbor);",
+        "                    color[neighbor] = 1 - color[Front]; // Assign the opposite color",
+        "                } else if (color[neighbor] == color[Front]) {",
+        "                    return false;",
+        "                }",
+        "            }",
+        "        }",
+        "        return true;",
+        "    }",
+        "};"
+      ],
+      "description": "C++ Graph Template"
+    },
+  
+    
+        "Longest Common Subsequence": {
+          "prefix": "longest_common_subsequence",
+          "body": [
+            
+            "int longestCommonSubsequence(string text1, string text2) {",
+            "    int m = text1.length();",
+            "    int n = text2.length();",
+            "",
+            "    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));",
+            "",
+            "    for (int i = 1; i <= m; ++i) {",
+            "        for (int j = 1; j <= n; ++j) {",
+            "            if (text1[i - 1] == text2[j - 1]) {",
+            "                dp[i][j] = 1 + dp[i - 1][j - 1];",
+            "            } else {",
+            "                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);",
+            "            }",
+            "        }",
+            "    }",
+            "    return dp[m][n];",
+            "}"
+          ],
+          "description": "C++ Longest Common Subsequence Function"
+        }
+      
+      
+  
 }
